@@ -1,7 +1,6 @@
 import numpy as np
 import os
 import time
-import random
 
 def create_grid(rows, cols):
     """Create a new grid of the given size."""
@@ -15,18 +14,13 @@ def draw_grid(grid):
 
 def count_neighbors(grid, row, col):
     """Count the number of live neighbors around the given cell."""
-    rows, cols = len(grid), len(grid[0])
-    count = 0
-    for i in range(max(0, row-1), min(rows, row+2)):
-        for j in range(max(0, col-1), min(cols, col+2)):
-            if (i, j) != (row, col):
-                count += grid[i][j]
-    return count
+    neighbors = grid[max(0, row-1):min(row+2, grid.shape[0]), max(0, col-1):min(col+2, grid.shape[1])]
+    return np.sum(neighbors) - grid[row][col]
 
 def update_grid(grid):
     """Update the grid for the next generation."""
     new_grid = np.copy(grid)
-    rows, cols = len(grid), len(grid[0])
+    rows, cols = grid.shape
 
     for row in range(rows):
         for col in range(cols):
