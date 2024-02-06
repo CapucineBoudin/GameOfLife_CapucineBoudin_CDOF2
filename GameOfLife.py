@@ -1,6 +1,4 @@
 import numpy as np
-import os
-import time
 import tkinter as tk
 
 #global variable to interrupt the loop
